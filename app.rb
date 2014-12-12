@@ -1,13 +1,12 @@
 require 'sinatra/base'
 
 class App < Sinatra::Base
-
   def get_url_params_or_json
     if request.content_type == 'application/json'
       p = JSON.parse(request.body.read)
-      @args = Hash[p.map { |k, v| [k.to_sym, v] }]
+      Hash[p.map { |k, v| [k.to_sym, v] }]
     else
-      @args = params
+      params
     end
   end
 
@@ -19,7 +18,7 @@ class App < Sinatra::Base
   end
 
   before do
-    get_url_params_or_json
+    @args = get_url_params_or_json
     set_cors_headers
   end
 

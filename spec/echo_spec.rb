@@ -42,6 +42,16 @@ class EchoTest < MiniTest::Unit::TestCase
     assert_equal json_body, last_response.body
   end
 
+  # def test_status_418_json
+  #   post "/echo", { body: json_body, status: 418 }.to_json, headers
+  #   assert_equal({ teapot: true }.to_json, last_response.body)
+  # end
+  #
+  # def test_status_418_text
+  #   post "/echo?body=sdsdsdsd&status=418"
+  #   assert_equal '<h1>I am a teapot</h1>', last_response.body
+  # end
+
 private
 
   def status
