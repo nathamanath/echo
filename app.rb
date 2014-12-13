@@ -15,7 +15,7 @@ class App < Sinatra::Base
   end
 
   def set_cors_headers
-    headers 'Access-Control-Allow-Methods' => 'GET, POST, PUT, PATCH, DELETE OPTIONS',
+    headers 'Access-Control-Allow-Methods' => 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
             'Access-Control-Max-Age' => (10 * 60).to_s,
             'Access-Control-Allow-Headers' => 'Origin, Content-Type, Accept, Authorization, Token',
             'Access-Control-Allow-Origin' => '*'
