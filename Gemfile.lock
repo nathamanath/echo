@@ -12,6 +12,7 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
+    rdiscount (2.1.7.1)
     sass (3.4.8)
     sinatra (1.4.5)
       rack (~> 1.4)
@@ -30,6 +31,7 @@ PLATFORMS
 DEPENDENCIES
   pry
   puma
+  rdiscount
   sass
   sinatra
   slim

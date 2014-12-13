@@ -5,4 +5,5 @@ gem 'sinatra'
 gem 'puma'
 gem 'slim'
 gem 'sass'
+gem 'rdiscount'
 
