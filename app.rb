@@ -1,4 +1,7 @@
 require 'sinatra/base'
+require 'slim'
+require 'rdiscount'
+require 'json'
 
 class App < Sinatra::Base
 
@@ -36,6 +39,11 @@ class App < Sinatra::Base
 
       @args[:body] || ''
     end
+  end
+
+  get '/' do
+    content = File.read File.expand_path('../README.md', __FILE__)
+    slim :index, locals: { content: content }
   end
 end
 

@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'pry'
+gem 'pry', group: :development
 gem 'sinatra'
 gem 'puma'
+gem 'slim'
+gem 'sass'
+gem 'rdiscount'
 
