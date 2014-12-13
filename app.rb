@@ -1,6 +1,7 @@
 require 'sinatra/base'
 
 class App < Sinatra::Base
+
   def get_url_params_or_json
     if request.content_type == 'application/json'
       p = JSON.parse(request.body.read)
