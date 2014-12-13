@@ -37,5 +37,9 @@ class App < Sinatra::Base
       @args[:body] || ''
     end
   end
+
+  get '/' do
+    slim :index
+  end
 end
 
