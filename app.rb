@@ -26,6 +26,10 @@ class App < Sinatra::Base
     set_cors_headers
   end
 
+  options '*' do
+    ''
+  end
+
   # Do the echoing for listed verbs
   ['get', 'post', 'put', 'patch', 'delete'].each do |verb|
     self.send(verb, '/echo') do
