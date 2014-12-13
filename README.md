@@ -24,16 +24,15 @@ e.g. using all params:
 a json request:
 
 ```sh
-curl -XPOST echo.nathansplace.co.uk/echo -v -H 'Content-Type: application/json' -d
-'{"body": "{\"teapot\": true}", "status": 418, "headers": "{\"Content-Type\":
-\"application/json\"}"}'
+curl -XPOST echo.nathansplace.co.uk/echo -v -H "Content-Type: application/json" -d\
+'{"status": 418, "body": "{\"teapot\": true}", "headers": {"Content-Type":\
+"application/json"}}'
 ```
 
 and the same thing url encoded params:
 
 ```sh
-curl -XPOST
-echo.nathansplace.co.uk/echo?body%3D%7B%22teapot%22%3A%20true%7D%26status%3D418%26headers%5BContent-Type%5D%3Dapplication%2Fjson -v
+curl -v -XPOST echo.nathansplace.co.uk/echo\?body=%7Bteapot:%20true%7D\&status=418\&headers%5BContent-Type%5D=application%2Fjson
 ```
 (?body={"teapot": true}&status=418&headers[Content-Type]=application/json)
 
@@ -43,11 +42,11 @@ And an ajax example using [ajax.js](https://github.com/nathamanath/ajax.js)
 Ajax.request({
   url: 'http://echo.nathansplace.co.uk/echo',
   type: 'JSON',
-  method: 'POST';
+  method: 'POST',
   data: {
     body: '{"teapot": true}',
     status: 418,
-    headers: {Content-Type: 'application/json'}
+    headers: {'Content-Type': 'application/json'},
   },
   onSuccess: function(xhr) {
     console.log('horray');
