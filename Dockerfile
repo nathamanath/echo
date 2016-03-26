@@ -1,32 +1,31 @@
-FROM dockerfile/ubuntu
-MAINTAINER NathanG
+FROM ubuntu
 
 RUN apt-get update -yqq && apt-get upgrade -yqq
 
 # Ruby
-RUN apt-get install -yqq git-core && apt-get clean
+RUN apt-get -yqq update
+RUN apt-get -yqq install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev curl git-core libffi-dev && apt-get clean
+
 RUN git clone https://github.com/sstephenson/ruby-build.git && cd ruby-build && ./install.sh
-RUN apt-get install -yqq libssl-dev
+
 ENV CONFIGURE_OPTS --disable-install-rdoc
-RUN ruby-build 2.1.1 /usr/local
+RUN echo "gem: --no-document" >> ~/.gemrc
+RUN ruby-build 2.3.0 /usr/local
 RUN rm -r ruby-build
+
+# should be linked to gems conatainer so that gems can persist
+# between deployments.
+ENV GEM_HOME /ruby_gems/2.3
+ENV PATH /ruby_gems/2.3/bin:$PATH
 
 # Nginx
 RUN apt-get install -yqq nginx
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 ADD ./config/sites-available/default /etc/nginx/sites-available/default
 
-# Add just Gemfile and bundle to make this cachable
-ADD Gemfile /app/Gemfile
-ADD Gemfile.lock /app/Gemfile.lock
-RUN echo "gem: --no-document" >> ~/.gemrc
+RUN mkdir -p /tmp/sockets
 
 WORKDIR /app
-RUN gem install bundler
-RUN bundle install -j8 --binstubs --without development test
-
-ADD . /app
-RUN mkdir -p /app/tmp/sockets
 
 EXPOSE 80
 
