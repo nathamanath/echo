@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'sinatra'
-gem 'puma'
+gem 'thin'
 gem 'slim'
 gem 'rdiscount'
 gem 'pry'

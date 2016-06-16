@@ -13,7 +13,6 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    puma (3.4.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -42,11 +41,11 @@ PLATFORMS
 
 DEPENDENCIES
   pry
-  puma
   rdiscount
   sinatra
   sinatra-websocket
   slim
+  thin
 
 RUBY VERSION
    ruby 2.3.1p112

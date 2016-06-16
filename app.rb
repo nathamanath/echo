@@ -6,7 +6,7 @@ require 'sinatra-websocket'
 
 class App < Sinatra::Base
 
-  set :server, 'thin'
+  set :server, 'puma'
   set :sockets, []
 
   def get_url_params_or_json
@@ -41,7 +41,9 @@ class App < Sinatra::Base
     request.websocket do |ws|
 
       ws.onopen do
-        ws.send(@args[:body] || '')
+        body = @args[:body]
+
+        ws.send(body) if body
         settings.sockets << ws
       end
 
