@@ -2,8 +2,12 @@ require 'sinatra/base'
 require 'slim'
 require 'rdiscount'
 require 'json'
+require 'sinatra-websocket'
 
 class App < Sinatra::Base
+
+  set :server, 'puma'
+  set :sockets, []
 
   def get_url_params_or_json
     if request.content_type == 'application/json'
@@ -28,6 +32,30 @@ class App < Sinatra::Base
 
   options '*' do
     ''
+  end
+
+  # Handle websockets
+  get '/echo' do
+    pass unless request.websocket?
+
+    request.websocket do |ws|
+
+      ws.onopen do
+        body = @args[:body]
+
+        ws.send(body) if body
+        settings.sockets << ws
+      end
+
+      ws.onmessage do |msg|
+        EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+      end
+
+      ws.onclose do
+        settings.sockets.delete(ws)
+      end
+
+    end
   end
 
   # Do the echoing for listed verbs
