@@ -1,11 +1,36 @@
 # Echo http requests
 
-Echo is a tool for testing how your applications handle http responses.
-It allows you to define a http response in the request its self.
+Echo is a tool for testing how your applications handle http and websocket
+responses. It allows you to define a http response in the request its self.
+
+http://echo.nathansplace.co.uk/echo?body=hello
 
 ## Usage
 
-Echo takes the following params, either as json, or url encoded.
+### Websockets
+
+* Make a websocket connection to `echo.nathansplace.co.uk/echo`
+* Send a message
+* Receive the same message (hopefully)
+
+#### Javascript example
+
+A minimal javascript example.
+
+```javascript
+  var socket = new WebSocket("ws://echo.nathansplace.co.uk/echo");
+
+  socket.addEventListener("message", function(e) {
+    var message = e.data;
+    console.log("got `" + message + "`");
+  });
+
+  socket.send("ECHO...");
+```
+
+### HTTP
+
+Echo takes the following params, either as json, or url encoded query string.
 
 * status {integer} - http response status
 * body {string} - response body content
@@ -18,39 +43,16 @@ Echo will respond to the following http verbs:
 * DELETE
 * PATCH
 * PUT
+* OPTIONS (CORS only)
 
-e.g. using all params:
+CORS headers are set for you.
 
-a json request:
+#### Curl example
 
-```sh
-curl -XPOST echo.nathansplace.co.uk/echo -v -H "Content-Type: application/json" -d\
-'{"status": 418, "body": "{\"teapot\": true}", "headers": {"Content-Type":\
-"application/json"}}'
-```
-
-and the same thing url encoded params:
+A post request with json body and json response:
 
 ```sh
-curl -v -XPOST echo.nathansplace.co.uk/echo\?body=%7Bteapot:%20true%7D\&status=418\&headers%5BContent-Type%5D=application%2Fjson
+curl -v -X POST http://echo.nathansplace.co.uk/echo \
+  -H "Content-Type: application/json" \
+  -d '{"body": "{\"teapot\": true}", "status": 418, "headers": {"Content-Type": "application/json"}}'
 ```
-(?body={"teapot": true}&status=418&headers[Content-Type]=application/json)
-
-And an ajax example using [ajax.js](https://github.com/nathamanath/ajax.js)
-
-```javascript
-Ajax.request({
-  url: 'http://echo.nathansplace.co.uk/echo',
-  type: 'JSON',
-  method: 'POST',
-  data: {
-    body: '{"teapot": true}',
-    status: 418,
-    headers: {'Content-Type': 'application/json'},
-  },
-  onSuccess: function(xhr) {
-    console.log('horray');
-  }
-});
-```
-
