@@ -58,7 +58,7 @@ task :deploy do
         command %[docker kill echo_production]
         command %[docker rm echo_production]
 
-        command %[docker run -p 8002:80 --restart always --name echo_production -e RACK_ENV=production -d -v /home/nathan/echo/app/current:/app --volumes-from gems-2.3 -t ubuntu/echo]
+        command %[docker run -p 8002:80 -e LE_DOMAIN=echo.nathansplace.co.uk LE_EMAIL=nathangoddard@me.com --restart always --name echo_production -e RACK_ENV=production -d -v /home/nathan/echo/app/current:/app --volumes-from gems-2.3 -t ubuntu/echo]
       end
     end
   end
