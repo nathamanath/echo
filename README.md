@@ -32,7 +32,7 @@ curl -XPOST echo.nathansplace.co.uk/echo -v -H "Content-Type: application/json" 
 and the same thing url encoded params:
 
 ```sh
-curl -v -XPOST echo.nathansplace.co.uk/echo\?body=%7Bteapot:%20true%7D\&status=418\&headers%5BContent-Type%5D=application%2Fjson
+curl -v -XPOST echo.nathansplace.co.uk/echo?body=%7Bteapot:%20true%7D&status=418&headers%5BContent-Type%5D=application%2Fjson
 ```
 (?body={"teapot": true}&status=418&headers[Content-Type]=application/json)
 
