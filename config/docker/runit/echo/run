@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /app
+exec bundle exec thin start -S /tmp/sockets/thin.sock -e production
