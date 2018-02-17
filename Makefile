@@ -1,13 +1,10 @@
-IMAGE_NAME=debian/echo
+IMAGE_NAME=nathamanath/echo
+VERSION=$(shell cat ./version.txt)
+ENVIRONMENT=production
 
-run:
-	bundle exec rackup
+docker:
+	docker build --build-arg RUBY_VERSION=2.4.3 --build-arg RACK_ENV=${ENVIRONMENT} -t ${IMAGE_NAME} .
+	docker tag  ${IMAGE_NAME} ${IMAGE_NAME}:latest
+	docker tag  ${IMAGE_NAME} ${IMAGE_NAME}:${VERSION}
 
-docker: permissions
-	docker build -t ${IMAGE_NAME} .
-
-permissions:
-	# ensure that executables are executable
-	chmod +x config/docker/my_init.d/*
-	chmod -R +x config/docker/runit/*
-	chmod +x config/docker/bin/*
+PHONY: docker
