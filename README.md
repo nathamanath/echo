@@ -5,45 +5,47 @@ responses. It allows you to define a http response in the request its self.
 
 http://echo.nathansplace.co.uk/echo?body=hello
 
+I wrote about it in my blog article [Echo... echo](https://nathansplace.uk/articles/echo-echo)
+
 ## Usage
 
 ### Websockets
 
-* Make a websocket connection to `echo.nathansplace.co.uk/echo`
-* Send a message
-* Receive the same message (hopefully)
+- Make a websocket connection to `echo.nathansplace.co.uk/echo`
+- Send a message
+- Receive the same message (hopefully)
 
 #### Javascript example
 
 A minimal javascript example.
 
 ```javascript
-  var socket = new WebSocket("ws://echo.nathansplace.co.uk/echo");
+var socket = new WebSocket("ws://echo.nathansplace.co.uk/echo");
 
-  socket.addEventListener("message", function(e) {
-    var message = e.data;
-    console.log("got `" + message + "`");
-  });
+socket.addEventListener("message", function (e) {
+  var message = e.data;
+  console.log("got `" + message + "`");
+});
 
-  socket.send("ECHO...");
+socket.send("ECHO...");
 ```
 
 ### HTTP
 
 Echo takes the following params, either as json, or url encoded query string.
 
-* status {integer} - http response status
-* body {string} - response body content
-* headers {object} - response headers
+- status {integer} - http response status
+- body {string} - response body content
+- headers {object} - response headers
 
 Echo will respond to the following http verbs:
 
-* GET
-* POST
-* DELETE
-* PATCH
-* PUT
-* OPTIONS (CORS only)
+- GET
+- POST
+- DELETE
+- PATCH
+- PUT
+- OPTIONS (CORS only)
 
 CORS headers are set for you.
 
